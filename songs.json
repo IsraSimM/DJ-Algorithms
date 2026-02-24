@@ -1,0 +1,17 @@
+﻿[
+  { "id": 1, "nombre": "Rock", "duracion_total": 6, "duracion_restante": 6, "prioridad": 2, "tiempo_llegada": 0, "genero": "Rock" },
+  { "id": 2, "nombre": "Salsa", "duracion_total": 3, "duracion_restante": 3, "prioridad": 3, "tiempo_llegada": 1, "genero": "Latino" },
+  { "id": 3, "nombre": "Jazz", "duracion_total": 5, "duracion_restante": 5, "prioridad": 4, "tiempo_llegada": 2, "genero": "Jazz" },
+  { "id": 4, "nombre": "Pop", "duracion_total": 4, "duracion_restante": 4, "prioridad": 1, "tiempo_llegada": 3, "genero": "Pop" },
+  { "id": 5, "nombre": "Electro", "duracion_total": 7, "duracion_restante": 7, "prioridad": 5, "tiempo_llegada": 0, "genero": "EDM" },
+  { "id": 6, "nombre": "Reggaeton", "duracion_total": 4, "duracion_restante": 4, "prioridad": 3, "tiempo_llegada": 4, "genero": "Urbano" },
+  { "id": 7, "nombre": "House", "duracion_total": 8, "duracion_restante": 8, "prioridad": 2, "tiempo_llegada": 5, "genero": "House" },
+  { "id": 8, "nombre": "Techno", "duracion_total": 6, "duracion_restante": 6, "prioridad": 4, "tiempo_llegada": 1, "genero": "Techno" },
+  { "id": 9, "nombre": "Funk", "duracion_total": 5, "duracion_restante": 5, "prioridad": 2, "tiempo_llegada": 6, "genero": "Funk" },
+  { "id": 10, "nombre": "Indie", "duracion_total": 4, "duracion_restante": 4, "prioridad": 1, "tiempo_llegada": 2, "genero": "Indie" },
+  { "id": 11, "nombre": "Synthwave", "duracion_total": 7, "duracion_restante": 7, "prioridad": 5, "tiempo_llegada": 3, "genero": "Synth" },
+  { "id": 12, "nombre": "Cumbia", "duracion_total": 3, "duracion_restante": 3, "prioridad": 2, "tiempo_llegada": 7, "genero": "Latino" },
+  { "id": 13, "nombre": "Drum & Bass", "duracion_total": 5, "duracion_restante": 5, "prioridad": 4, "tiempo_llegada": 4, "genero": "DnB" },
+  { "id": 14, "nombre": "Balada", "duracion_total": 6, "duracion_restante": 6, "prioridad": 1, "tiempo_llegada": 8, "genero": "Pop" },
+  { "id": 15, "nombre": "Afrobeat", "duracion_total": 4, "duracion_restante": 4, "prioridad": 3, "tiempo_llegada": 5, "genero": "Afro" }
+]

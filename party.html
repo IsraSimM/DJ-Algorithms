@@ -1,0 +1,235 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DJ - Simulador</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="hero">
+        <p class="eyebrow">Simulador</p>
+        <h1>DJ <span class="accent">🎧</span></h1>
+        <p class="subtitle">Una sola bocina, muchas canciones. </p>
+      </div>
+      <div class="controls-bar panel">
+        <div class="controls">
+          <label class="control algo-control">
+            <span class="control-title">Algoritmo</span>
+            <div class="control-body">
+              <select id="algoSelect">
+                <option value="rr" selected>Round Robin</option>
+                <option value="fcfs">FIFO</option>
+                <option value="sjf">SJF</option>
+                <option value="priority">Prioridades</option>
+                <option value="multilevel">Politicas</option>
+              </select>
+            </div>
+          </label>
+          <label class="control rr-only">
+            <span class="control-title">Quantum (s)</span>
+            <div class="control-body">
+              <input id="quantumInput" type="number" min="1" max="10" value="2" />
+            </div>
+          </label>
+          <label class="control preemptive-only">
+            <span class="control-title">Preemptivo</span>
+            <div class="control-body">
+              <div class="toggle">
+                <input id="preemptiveToggle" type="checkbox" />
+                <span>Activar</span>
+              </div>
+            </div>
+          </label>
+          <label class="control multi-quantum multilevel-only">
+            <span class="control-title">Quantum multilevel</span>
+            <div class="control-body">
+              <div class="multi-quantum-row">
+                <div class="multi-quantum-item">
+                  <small>Alta</small>
+                  <input id="quantumHigh" type="number" min="1" max="10" value="2" />
+                </div>
+                <div class="multi-quantum-item">
+                  <small>Media</small>
+                  <input id="quantumMid" type="number" min="1" max="10" value="3" />
+                </div>
+                <div class="multi-quantum-item">
+                  <small>Baja</small>
+                  <input id="quantumLow" type="number" min="1" max="10" value="4" />
+                </div>
+              </div>
+            </div>
+          </label>
+          <label class="control speed-control">
+            <span class="control-title">Velocidad</span>
+            <div class="control-body">
+              <input id="speedRange" type="range" min="1" max="20" step="1" value="1" />
+              <div class="speed-labels">
+                <button class="speed-btn" data-speed="1">x1</button>
+                <button class="speed-btn" data-speed="5">x5</button>
+                <button class="speed-btn" data-speed="20">x20</button>
+              </div>
+            </div>
+          </label>
+          <label class="control limit-control">
+            <span class="control-title">Límite canciones</span>
+            <div class="control-body">
+              <div class="toggle">
+                <input id="songLimitToggle" type="checkbox" />
+                <span>Activar</span>
+              </div>
+              <input id="songLimitInput" type="number" min="1" value="10" class="hidden" />
+            </div>
+          </label>
+          <div class="control buttons">
+            <span class="control-title sr-only">Acciones</span>
+            <div class="control-body">
+              <button id="startBtn" class="primary">Iniciar</button>
+              <button id="pauseBtn">Pausar</button>
+              <button id="resetBtn">Reset</button>
+              <button id="fillQueueBtn">Llenar cola</button>
+            </div>
+          </div>
+      </div>
+      </div>
+    </header>
+
+    <section class="panel algo-info">
+      <div class="panel-header">
+        <h2 id="algoTitle">FIFO / FCFS</h2>
+      </div>
+      <p id="algoDescription"></p>
+      <ul id="algoNotes" class="algo-notes"></ul>
+    </section>
+
+    <section class="top-grid">
+      <article class="panel queue-panel">
+        <div class="panel-header">
+          <h2>Solicitudes</h2>
+          <span id="queueCount" class="badge">0 esperando</span>
+        </div>
+        <div id="queueList" class="queue-list"></div>
+      </article>
+
+      <article class="panel cpu-panel">
+        <div class="cpu-title">
+          <div class="cpu-icon">🎧</div>
+          <div>
+            <p class="eyebrow">Bocina en uso</p>
+            <h2 id="nowPlayingName">Sin canción</h2>
+          </div>
+        </div>
+        <div class="progress">
+          <div id="nowPlayingBar" class="progress-bar"></div>
+        </div>
+        <div class="cpu-stats">
+          <div>
+            <p>Restante</p>
+            <span id="nowPlayingRemaining">--</span>
+          </div>
+          <div>
+            <p>Tiempo</p>
+            <span id="nowPlayingTime">0s</span>
+          </div>
+          <div>
+            <p>Prioridad</p>
+            <span id="nowPlayingPriority">--</span>
+          </div>
+        </div>
+        <div class="cpu-actions">
+          <button id="interruptBtn">Interrumpir</button>
+        </div>
+      </article>
+
+      <article class="panel done-panel">
+        <div class="panel-header">
+          <h2>Reproducidas</h2>
+          <span id="doneCount" class="badge">0 terminadas</span>
+        </div>
+        <div id="completedList" class="done-list"></div>
+      </article>
+    </section>
+
+    <section class="panel queue-table">
+      <div class="panel-header">
+        <h2>Cola de reproducción</h2>
+        <div class="actions">
+          <button id="addSongBtn">Agregar canción</button>
+          <button id="randomSongBtn">Aleatoria</button>
+          <button id="compareBtn">Comparar</button>
+        </div>
+      </div>
+      <div class="add-song">
+        <label>
+          <span>Nombre</span>
+          <input id="songName" type="text" placeholder="Nombre" />
+        </label>
+        <label>
+          <span>Duración (s)</span>
+          <input id="songDuration" type="number" min="1" max="20" value="5" />
+        </label>
+        <label>
+          <span>Prioridad (1-5)</span>
+          <input id="songPriority" type="number" min="1" max="5" value="3" />
+        </label>
+        <label>
+          <span>Llegada (s)</span>
+          <input id="songArrival" type="number" min="0" value="0" />
+        </label>
+        <span class="hint">Llegada en segundos (0 = ahora)</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Avatar</th>
+            <th>Nombre</th>
+            <th>Duración</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Progreso</th>
+          </tr>
+        </thead>
+        <tbody id="songTable"></tbody>
+      </table>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="panel history-panel">
+        <div class="panel-header">
+          <h2>Historialin</h2>
+        </div>
+        <div id="timeline" class="gantt"></div>
+      </article>
+
+      <article class="panel metrics-panel">
+        <div class="panel-header">
+          <h2>Métricas</h2>
+        </div>
+        <div class="metrics">
+          <div>
+            <p>Espera promedio</p>
+            <span id="avgWait">--</span>
+          </div>
+          <div>
+            <p>Respuesta promedio</p>
+            <span id="avgResponse">--</span>
+          </div>
+          <div>
+            <p>Turnaround promedio</p>
+            <span id="avgTurnaround">--</span>
+          </div>
+          <div>
+            <p>Uso de CPU</p>
+            <span id="cpuUsage">--</span>
+          </div>
+        </div>
+        <div id="compareTable" class="compare-table"></div>
+      </article>
+    </section>
+  </div>
+
+  <script src="party.js"></script>
+</body>
+</html>
