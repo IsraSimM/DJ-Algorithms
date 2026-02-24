@@ -45,3 +45,8 @@ Ejemplo:
 Este proyecto ya incluye `netlify.toml` dentro de `DJS`.
 - Base directory: `DJS`
 - Publish directory: `.`
+
+**Demo**
+```text
+https://djplan-algoritmo.netlify.app/
+```
